@@ -39,7 +39,7 @@ export class GameService {
       .subscribe({
         next: (res) => {
           console.log(
-            `${res.game.current_player} rolled a ${res.game.dice1Value} and a ${res.game.dice2Value}`,
+            `${res.game.current_player.username} rolled a ${res.game.dice1Value} and a ${res.game.dice2Value}`,
           );
           this._game$.set(res.game);
         },
