@@ -1,13 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { DiceService } from '@features/board/data/services/dice/dice.service';
+import { GameService } from '@features/board/data/services/game/game.service';
 
 @Component({
   selector: 'app-dice',
-  imports: [],
   templateUrl: './dice.html',
   styleUrl: './dice.css',
 })
 export class Dice {
-  private _diceService: DiceService = inject(DiceService);
-  diceRollsCount$ = this._diceService.diceRollsCount$;
+  private _gameService = inject(GameService);
+  game$ = this._gameService.game$;
 }

@@ -1,5 +1,10 @@
-<div class="dice">
-  @if (diceRollsCount$() > 0) {
-    <img src="/dices/dice_{{ diceRollsCount$() }}.png" alt="dice" />
+<div class="dice-container">
+  @if (game$()) {
+    <div class="dice">
+      <img src="/dices/dice_{{ game$()!.dice1Value }}.png " alt="dice" />
+    </div>
+    <div class="dice">
+      <img src="/dices/dice_{{ game$()!.dice2Value }}.png" alt="dice" />
+    </div>
   }
 </div>
