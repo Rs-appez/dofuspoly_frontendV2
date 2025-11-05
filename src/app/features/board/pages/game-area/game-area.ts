@@ -1,6 +1,7 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, effect, inject, OnInit } from '@angular/core';
+import { Player } from '@features/board/board.models';
 import { Dice } from '@features/board/components/dice/dice';
-import { DiceService } from '@features/board/data/services/dice/dice.service';
+import { GameService } from '@features/board/data/services/game/game.service';
 
 @Component({
   selector: 'app-game-area',
@@ -8,10 +9,36 @@ import { DiceService } from '@features/board/data/services/dice/dice.service';
   templateUrl: './game-area.html',
   styleUrl: './game-area.css',
 })
-export class GameArea {
-  private _diceService: DiceService = inject(DiceService);
+export class GameArea implements OnInit {
+  private _gameService = inject(GameService);
+
+  private player: Player = {
+    id: '1',
+    username: 'appez',
+    position: 0,
+    cards: [],
+    image: 'player1.png',
+    in_jail: false,
+    jail_turns: 0,
+    money: 1500,
+  };
+
+  game$ = this._gameService.game$;
+
+  constructor() {
+    effect(() => {
+      const game = this.game$();
+      if (game) {
+        console.log('Current game state:', game);
+      }
+    });
+  }
+
+  ngOnInit(): void {
+    this._gameService.getPlayerCurrentGame(this.player.id);
+  }
 
   rollDice(): void {
-    this._diceService.rollDice();
+    this._gameService.rollDice();
   }
 }
