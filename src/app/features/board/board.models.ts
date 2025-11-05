@@ -15,6 +15,7 @@ export interface Case {
 }
 
 export interface Player {
+  id: string;
   user: string;
   position: number;
   money: number;
