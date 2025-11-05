@@ -8,6 +8,12 @@ export const routes: Routes = [
     title: 'Home',
   },
   {
+    path: 'login',
+    loadChildren: () =>
+      import('@features/login/login.routes').then((m) => m.boardRoutes),
+    title: 'Login',
+  },
+  {
     path: 'board',
     loadChildren: () =>
       import('@features/board/board.routes').then((m) => m.boardRoutes),
