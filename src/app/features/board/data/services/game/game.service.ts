@@ -27,6 +27,7 @@ export class GameService {
         },
       });
   }
+
   rollDice(): Subscription {
     if (this.game$() === null) {
       throw new Error('No current game available to roll dice.');
