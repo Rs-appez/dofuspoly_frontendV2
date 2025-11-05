@@ -2,6 +2,8 @@ export interface Game {
   id: number;
   board: { cases: Case[] };
   players: Player[];
+  dice1Value: number;
+  dice2Value: number;
   turn: number;
   finished: boolean;
   current_player: Player;
@@ -16,7 +18,7 @@ export interface Case {
 
 export interface Player {
   id: string;
-  user: string;
+  username: string;
   position: number;
   money: number;
   in_jail: boolean;
