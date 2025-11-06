@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { isAuthentificatedGuardGuard } from '@core/guards/is-authentificated-guard-guard';
 
 export const routes: Routes = [
   {
@@ -18,5 +19,6 @@ export const routes: Routes = [
     loadChildren: () =>
       import('@features/board/board.routes').then((m) => m.boardRoutes),
     title: 'Game Board',
+    canActivate: [isAuthentificatedGuardGuard],
   },
 ];
