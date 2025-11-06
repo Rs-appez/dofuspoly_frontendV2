@@ -5,7 +5,7 @@ import {
   FormGroup,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { Auth } from '@core/services/auth';
+import { Auth, LoginResponse } from '@core/services/auth';
 import { StorageService } from '@core/services/storage.service';
 
 @Component({
@@ -30,11 +30,10 @@ export class Login implements OnInit {
   onSubmit(): void {
     const username = this.loginForm.get('username')?.value;
     const password = this.loginForm.get('password')?.value;
-    console.log('Login submitted with', { username, password });
-    // Here you would typically call an authentication service
+
     this._authService.login(username, password).subscribe({
-      next: (response) => {
-        console.log('Login successful:', response);
+      next: (response: LoginResponse) => {
+        this._storageService.setJwt(response.access, response.refresh);
       },
       error: (error) => {
         console.error('Login failed:', error);
