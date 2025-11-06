@@ -35,7 +35,7 @@ export class GameArea implements OnInit {
   }
 
   ngOnInit(): void {
-    this._gameService.getPlayerCurrentGame(this.player.id);
+    this._gameService.getPlayerCurrentGame();
   }
 
   rollDice(): void {

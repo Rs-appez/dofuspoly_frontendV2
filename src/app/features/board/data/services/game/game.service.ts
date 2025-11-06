@@ -14,18 +14,15 @@ export class GameService {
   private _game$ = signal<Game | null>(null);
   readonly game$ = this._game$.asReadonly();
 
-  getPlayerCurrentGame(playerId: string): Subscription {
-    const params = { user: playerId };
-    return this._http
-      .get<Game>(`${this.BASE_URL}/current_game/`, { params })
-      .subscribe({
-        next: (game) => {
-          this._game$.set(game);
-        },
-        error: (error) => {
-          console.error('Error fetching current game:', error);
-        },
-      });
+  getPlayerCurrentGame(): Subscription {
+    return this._http.get<Game>(`${this.BASE_URL}/current_game/`).subscribe({
+      next: (game) => {
+        this._game$.set(game);
+      },
+      error: (error) => {
+        console.error('Error fetching current game:', error);
+      },
+    });
   }
 
   rollDice(): Subscription {
