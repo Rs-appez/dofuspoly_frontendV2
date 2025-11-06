@@ -1,0 +1,13 @@
+.player-list {
+  display: flex;
+  flex-direction: row;
+}
+
+.player-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #ccc;
+  padding: 10px;
+  width: 200px;
+}
