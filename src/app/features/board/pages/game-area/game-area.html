@@ -1,6 +1,4 @@
-@if (game$()) {
-  <p>Player position : {{ game$()!.current_player.position }}</p>
-}
+<app-player-info></app-player-info>
 <div class="dice">
   <app-dice></app-dice>
   <button (click)="rollDice()">Roll Dice</button>
