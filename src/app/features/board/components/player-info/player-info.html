@@ -1,8 +1,15 @@
 @if (game$()) {
   <div class="player-list">
     @for (player of game$()!.players; track player) {
-      <div class="player-info">
-        <h3>{{ player.username }}</h3>
+      <div
+        class="player-info"
+        [ngClass]="{
+          'current-player': player.username === currentPlayer!.username,
+        }"
+      >
+        <h3>
+          {{ player.username }}
+        </h3>
         <p>Position: {{ player.position }}</p>
       </div>
     }

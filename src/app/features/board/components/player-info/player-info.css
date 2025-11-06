@@ -11,3 +11,8 @@
   padding: 10px;
   width: 200px;
 }
+
+.current-player {
+  border-color: #007bff;
+  background-color: #e7f1ff;
+}
