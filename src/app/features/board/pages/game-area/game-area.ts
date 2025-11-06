@@ -12,17 +12,6 @@ import { GameService } from '@features/board/data/services/game/game.service';
 export class GameArea implements OnInit {
   private _gameService = inject(GameService);
 
-  private player: Player = {
-    id: '1',
-    username: 'appez',
-    position: 0,
-    cards: [],
-    image: 'player1.png',
-    in_jail: false,
-    jail_turns: 0,
-    money: 1500,
-  };
-
   game$ = this._gameService.game$;
 
   constructor() {
