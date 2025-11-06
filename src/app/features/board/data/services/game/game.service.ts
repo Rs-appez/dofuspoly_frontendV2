@@ -5,6 +5,10 @@ import { environment } from '@env/environment';
 import { Game } from '@features/board/board.models';
 import { Subscription } from 'rxjs/internal/Subscription';
 
+export interface GameWebSocketMessage {
+  game: Game;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -79,10 +83,12 @@ export class GameService {
     if (this._game$() === null) {
       throw new Error('No current game available for WebSocket connection.');
     }
-    this.ws$ = webSocket(`ws://127.0.0.1:8000/ws/game/${this._game$()?.id}/`);
+    this.ws$ = webSocket(`${this.BASE_WS_URL}/game/${this._game$()?.id}/`);
 
     this.ws$.subscribe({
-      next: (msg) => this._game$.set(msg),
+      next: (msg: GameWebSocketMessage) => {
+        this._game$.set(msg.game);
+      },
       error: (err) => console.error(err),
       complete: () => console.log('Connection closed'),
     });
