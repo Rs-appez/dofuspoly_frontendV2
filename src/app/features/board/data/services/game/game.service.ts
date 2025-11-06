@@ -46,4 +46,26 @@ export class GameService {
         },
       });
   }
+
+  endTurn(): Subscription {
+    if (this.game$() === null) {
+      throw new Error('No current game available to end turn.');
+    }
+    return this._http
+      .get<{
+        status: string;
+        game: Game;
+      }>(`${this.BASE_URL}/end_turn/`)
+      .subscribe({
+        next: (res) => {
+          console.log(
+            `Turn ended. It is now ${res.game.current_player.username}'s turn.`,
+          );
+          this._game$.set(res.game);
+        },
+        error: (error) => {
+          console.error('Error ending turn:', error);
+        },
+      });
+  }
 }
