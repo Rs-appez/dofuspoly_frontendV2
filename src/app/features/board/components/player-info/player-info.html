@@ -1,6 +1,6 @@
 @if (game$()) {
   <div class="player-list">
-    @for (player of game$()!.players; track player) {
+    @for (player of game$()!.players; track player.username) {
       <div
         class="player-info"
         [ngClass]="{
