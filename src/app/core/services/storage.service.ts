@@ -4,15 +4,21 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class StorageService {
-  public setJwt(jwt: string) {
-    localStorage.setItem('jwt', jwt);
+  public setJwt(access: string, refresh: string) {
+    localStorage.setItem('access', access);
+    localStorage.setItem('refresh', refresh);
   }
 
   public delJwt() {
-    localStorage.removeItem('jwt');
+    localStorage.removeItem('access');
+    localStorage.removeItem('refresh');
   }
 
   public getJwt(): string {
-    return localStorage.getItem('jwt') || '';
+    return localStorage.getItem('access') || '';
+  }
+
+  public getRefresh(): string {
+    return localStorage.getItem('refresh') || '';
   }
 }
