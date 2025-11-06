@@ -13,15 +13,4 @@ export class PlayerInfo {
   private _gameService = inject(GameService);
 
   game$ = this._gameService.game$;
-  currentPlayer: Player | null = null;
-
-  constructor() {
-    effect(() => {
-      const game = this.game$();
-      if (game) {
-        this.currentPlayer = game.current_player;
-        console.log('Game update:', game);
-      }
-    });
-  }
 }

@@ -4,7 +4,8 @@
       <div
         class="player-info"
         [ngClass]="{
-          'current-player': player.username === currentPlayer!.username,
+          'current-player':
+            player.username === game$()!.current_player.username,
         }"
       >
         <h3>
