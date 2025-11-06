@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@env/environment';
 import { StorageService } from './storage.service';
@@ -16,7 +16,15 @@ export class Auth {
 
   private _storageService = inject(StorageService);
   private _http: HttpClient = inject(HttpClient);
+
+  private readonly _isLoggedIn = signal<boolean>(
+    this._storageService.getJwt().length > 0,
+  );
+
+  readonly isLoggedIn = this._isLoggedIn.asReadonly();
+
   login(username: string, password: string) {
+    this._isLoggedIn.set(true);
     return this._http.post<LoginResponse>(`${this.BASE_URL}/api/token/`, {
       username,
       password,
@@ -25,6 +33,7 @@ export class Auth {
 
   logout() {
     this._storageService.delJwt();
+    this._isLoggedIn.set(false);
   }
 
   refreshToken(refresh: string) {
