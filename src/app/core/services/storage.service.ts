@@ -9,6 +9,10 @@ export class StorageService {
     localStorage.setItem('refresh', refresh);
   }
 
+  public setAccessToken(access: string) {
+    localStorage.setItem('access', access);
+  }
+
   public delJwt() {
     localStorage.removeItem('access');
     localStorage.removeItem('refresh');
