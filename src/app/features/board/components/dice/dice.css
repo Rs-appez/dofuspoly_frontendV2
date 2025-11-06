@@ -1,0 +1,7 @@
+.dice-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  height: 80px;
+}
