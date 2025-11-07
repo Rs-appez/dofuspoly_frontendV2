@@ -27,6 +27,14 @@ export class GameService {
   private _game$ = signal<Game | null>(null);
   readonly game$ = this._game$.asReadonly();
 
+  players$ = computed(() => {
+    const game = this._game$();
+    if (game === null) {
+      return null;
+    }
+    return game.players;
+  });
+
   diceRoll$ = computed(
     () => {
       if (this._game$() === null) {
