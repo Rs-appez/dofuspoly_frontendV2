@@ -1,6 +1,6 @@
 export interface Game {
   id: number;
-  board: { cases: Case[] };
+  board: { spaces: Space[] };
   players: Player[];
   dice1Value: number;
   dice2Value: number;
@@ -9,7 +9,7 @@ export interface Game {
   current_player: Player;
 }
 
-export interface Case {
+export interface Space {
   name: string;
   type: string;
   color: string;

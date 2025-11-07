@@ -75,16 +75,16 @@ export class GameService {
 
       // Only create new board reference if cases changed
       const casesChanged =
-        current.board.cases.length !== msg.game.board.cases.length ||
-        current.board.cases.some(
-          (c, i) => c.name !== msg.game.board.cases[i]?.name,
+        current.board.spaces.length !== msg.game.board.spaces.length ||
+        current.board.spaces.some(
+          (c, i) => c.name !== msg.game.board.spaces[i]?.name,
         );
 
       return {
         ...current,
         ...msg.game,
         board: casesChanged
-          ? { ...current.board, cases: [...msg.game.board.cases] }
+          ? { ...current.board, spaces: [...msg.game.board.spaces] }
           : current.board,
       };
     });
