@@ -2,10 +2,13 @@ import { Component, computed, effect, inject } from '@angular/core';
 import { GameService } from '@features/board/data/services/game/game.service';
 import { SpaceComponent } from '../space/space';
 import { CommonModule } from '@angular/common';
+import { Dice } from '../dice/dice';
+import { EndTurnBtn } from '../end-turn-btn/end-turn-btn';
+import { RollDiceBtn } from '../roll-dice-btn/roll-dice-btn';
 
 @Component({
   selector: 'app-board',
-  imports: [SpaceComponent, CommonModule],
+  imports: [SpaceComponent, CommonModule, Dice, EndTurnBtn, RollDiceBtn],
   templateUrl: './board.html',
   styleUrl: './board.css',
 })
@@ -14,6 +17,7 @@ export class Board {
   game$ = this._gameService.game$;
 
   spaces$ = computed(() => this.game$()?.board.spaces ?? []);
+  player$ = computed(() => this.game$()?.current_player ?? null);
 
   getRow(position: number): number {
     if (position >= 0 && position <= 11) {

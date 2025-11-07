@@ -8,4 +8,17 @@
     >
     </app-space>
   }
+  <div class="board-center">
+    <!-- <img src="assets/board-center.png" alt="Board Center" /> -->
+    <div class="dice-container">
+      <app-dice></app-dice>
+    </div>
+    <div class="btn-container">
+      @if (!player$()!.has_rolled) {
+        <app-roll-dice-btn></app-roll-dice-btn>
+      } @else {
+        <app-end-turn-btn></app-end-turn-btn>
+      }
+    </div>
+  </div>
 </div>
