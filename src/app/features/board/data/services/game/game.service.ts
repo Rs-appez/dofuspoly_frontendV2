@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
-import { inject, Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { environment } from '@env/environment';
 import { Game } from '@features/board/board.models';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { timer, throwError, retry, catchError } from 'rxjs';
+import { timer } from 'rxjs';
 
 export interface GameWebSocketMessage {
   game: Game;
@@ -18,6 +18,7 @@ export class GameService {
   BASE_WS_URL = environment.webSocketUrl;
 
   private ws$?: WebSocketSubject<any>;
+  private wsSubscription?: Subscription;
   private _http: HttpClient = inject(HttpClient);
 
   private reconnectAttempts = 0;
@@ -26,7 +27,20 @@ export class GameService {
   private _game$ = signal<Game | null>(null);
   readonly game$ = this._game$.asReadonly();
 
-  getPlayerCurrentGame(): Subscription {
+  diceRoll$ = computed(
+    () => {
+      if (this._game$() === null) {
+        return { dice1: 0, dice2: 0 };
+      }
+      return {
+        dice1: this._game$()!.dice1Value,
+        dice2: this._game$()!.dice2Value,
+      };
+    },
+    { equal: (a, b) => a.dice1 === b.dice1 && a.dice2 === b.dice2 },
+  );
+
+  launchGame(): Subscription {
     return this._http.get<Game>(`${this.BASE_URL}/current_game/`).subscribe({
       next: (game) => {
         this._game$.set(game);
@@ -38,42 +52,6 @@ export class GameService {
     });
   }
 
-  rollDice(): Subscription {
-    if (this.game$() === null) {
-      throw new Error('No current game available to roll dice.');
-    }
-    return this._http
-      .get<{
-        status: string;
-      }>(`${this.BASE_URL}/${this.game$()!.id}/roll_dice/`)
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-        },
-        error: (error) => {
-          console.error('Error rolling dice:', error);
-        },
-      });
-  }
-
-  endTurn(): Subscription {
-    if (this.game$() === null) {
-      throw new Error('No current game available to end turn.');
-    }
-    return this._http
-      .get<{
-        status: string;
-      }>(`${this.BASE_URL}/end_turn/`)
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-        },
-        error: (error) => {
-          console.error('Error ending turn:', error);
-        },
-      });
-  }
-
   // WebSocket connection methods
   connect() {
     if (this._game$() === null) {
@@ -81,8 +59,8 @@ export class GameService {
     }
     this.ws$ = webSocket(`${this.BASE_WS_URL}/game/${this._game$()?.id}/`);
 
-    this.ws$.subscribe({
-      next: (msg: GameWebSocketMessage) => this._game$.set(msg.game),
+    this.wsSubscription = this.ws$.subscribe({
+      next: (msg: GameWebSocketMessage) => this.updateGameFromMessage(msg),
       error: (err) => {
         console.error(err);
         this.tryReconnect();
@@ -90,7 +68,30 @@ export class GameService {
       complete: () => console.log('Connection closed'),
     });
   }
+
+  private updateGameFromMessage(msg: GameWebSocketMessage) {
+    this._game$.update((current) => {
+      if (!current) return msg.game;
+
+      // Only create new board reference if cases changed
+      const casesChanged =
+        current.board.cases.length !== msg.game.board.cases.length ||
+        current.board.cases.some(
+          (c, i) => c.name !== msg.game.board.cases[i]?.name,
+        );
+
+      return {
+        ...current,
+        ...msg.game,
+        board: casesChanged
+          ? { ...current.board, cases: [...msg.game.board.cases] }
+          : current.board,
+      };
+    });
+  }
+
   disconnect() {
+    this.wsSubscription?.unsubscribe();
     this.ws$?.complete();
   }
 
