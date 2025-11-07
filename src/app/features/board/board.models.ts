@@ -14,6 +14,7 @@ export interface Space {
   type: string;
   color: string;
   price: number;
+  position: number;
 }
 
 export interface Player {
