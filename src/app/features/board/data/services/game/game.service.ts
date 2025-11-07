@@ -41,14 +41,10 @@ export class GameService {
     return this._http
       .get<{
         status: string;
-        game: Game;
       }>(`${this.BASE_URL}/${this.game$()!.id}/roll_dice/`)
       .subscribe({
         next: (res) => {
-          console.log(
-            `${res.game.current_player.username} rolled a ${res.game.dice1Value} and a ${res.game.dice2Value}`,
-          );
-          this._game$.set(res.game);
+          console.log(res);
         },
         error: (error) => {
           console.error('Error rolling dice:', error);
@@ -63,14 +59,10 @@ export class GameService {
     return this._http
       .get<{
         status: string;
-        game: Game;
       }>(`${this.BASE_URL}/end_turn/`)
       .subscribe({
         next: (res) => {
-          console.log(
-            `Turn ended. It is now ${res.game.current_player.username}'s turn.`,
-          );
-          this._game$.set(res.game);
+          console.log(res);
         },
         error: (error) => {
           console.error('Error ending turn:', error);
