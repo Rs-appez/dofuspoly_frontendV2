@@ -15,12 +15,6 @@ export class Board {
 
   spaces$ = computed(() => this.game$()?.board.spaces ?? []);
 
-  constructor() {
-    effect(() => {
-      console.log('Board cases:', this.spaces$());
-    });
-  }
-
   getRow(position: number): number {
     if (position >= 0 && position <= 11) {
       return 11;

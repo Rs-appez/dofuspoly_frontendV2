@@ -9,10 +9,4 @@ import { GameService } from '@features/board/data/services/game/game.service';
 export class Dice {
   private _gameService = inject(GameService);
   diceValues$ = this._gameService.diceRoll$;
-
-  constructor() {
-    effect(() => {
-      console.log('Dice values:', this.diceValues$());
-    });
-  }
 }

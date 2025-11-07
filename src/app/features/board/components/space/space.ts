@@ -19,10 +19,6 @@ export class SpaceComponent {
     return this.space()!.color.toLowerCase().replace(' ', '-');
   });
 
-  ngOnInit(): void {
-    console.log('Space initialized:', this.space());
-  }
-
   isMiddle(): boolean {
     const pos = this.space()?.position ?? -1;
     if (pos >= 12 && pos <= 20) {
