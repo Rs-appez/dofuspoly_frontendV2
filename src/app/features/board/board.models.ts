@@ -20,6 +20,7 @@ export interface Space {
 export interface Player {
   username: string;
   position: number;
+  has_rolled: boolean;
   money: number;
   in_jail: boolean;
   jail_turns: number;
