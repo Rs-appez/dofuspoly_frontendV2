@@ -54,17 +54,8 @@ export class Board {
   }
 
   getRotation(position: number): number {
-    if (position >= 1 && position <= 11) {
-      return 0;
-    }
-    if (position >= 12 && position <= 20) {
-      return 90;
-    }
-    if (position >= 21 && position <= 31) {
+    if (position >= 21 && position <= 40) {
       return 180;
-    }
-    if (position >= 32 && position <= 40) {
-      return 270;
     }
     return 0;
   }

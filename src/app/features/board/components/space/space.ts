@@ -1,9 +1,10 @@
+import { CommonModule } from '@angular/common';
 import { Component, computed, input } from '@angular/core';
 import { Player, Space } from '@features/board/board.models';
 
 @Component({
   selector: 'app-space',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './space.html',
   styleUrl: './space.css',
 })
@@ -20,5 +21,16 @@ export class SpaceComponent {
 
   ngOnInit(): void {
     console.log('Space initialized:', this.space());
+  }
+
+  isMiddle(): boolean {
+    const pos = this.space()?.position ?? -1;
+    if (pos >= 12 && pos <= 20) {
+      return true;
+    }
+    if (pos >= 32 && pos <= 40) {
+      return true;
+    }
+    return false;
   }
 }

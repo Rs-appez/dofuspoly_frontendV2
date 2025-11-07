@@ -1,10 +1,17 @@
-<div class="space-container">
+<div class="space-container" [ngClass]="{ 'middle-space': isMiddle() }">
   @if (space()) {
     <div
       class="space-color"
+      [ngClass]="{ 'space-color-middle': isMiddle() }"
       [style.backgroundColor]="'var(--' + color() + '-space)'"
     ></div>
-    <div class="space-label">
+    <div
+      class="space-label"
+      [ngClass]="{
+        'space-label-middle': isMiddle(),
+        'space-label-normal': !isMiddle(),
+      }"
+    >
       <p>{{ space()!.name }}</p>
     </div>
   }
