@@ -14,24 +14,25 @@ export class PlayerService {
   private _http = inject(HttpClient);
   private _gameService = inject(GameService);
   private _storageService = inject(StorageService);
-  private _game = this._gameService.game$();
+  private _game$ = this._gameService.game$;
 
   player$ = computed(() => {
-    if (this._game === null) {
+    const game = this._gameService.game$();
+    if (game === null) {
       return null;
     }
     const currentPlayer = this._storageService.getUsername();
     return (
-      this._game.players.find((player) => player.username === currentPlayer) ||
-      null
+      game.players.find((player) => player.username === currentPlayer) || null
     );
   });
   isPlayerTurn$ = computed(() => {
     const player = this.player$();
-    if (this._game === null || player === null) {
+    const game = this._gameService.game$();
+    if (game === null || player === null) {
       return false;
     }
-    return this._game.current_player.username === player.username;
+    return game.current_player.username === player.username;
   });
 
   game$ = this._gameService.game$;
