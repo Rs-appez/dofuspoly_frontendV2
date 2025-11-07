@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { GameService } from '@features/board/data/services/game/game.service';
+import { PlayerService } from '@features/board/data/services/player/player-service';
 
 @Component({
   selector: 'app-end-turn-btn',
@@ -8,9 +8,9 @@ import { GameService } from '@features/board/data/services/game/game.service';
   styleUrl: './end-turn-btn.css',
 })
 export class EndTurnBtn {
-  private _gameService = inject(GameService);
+  private _playerService = inject(PlayerService);
 
   endTurn(): void {
-    this._gameService.endTurn();
+    this._playerService.endTurn();
   }
 }

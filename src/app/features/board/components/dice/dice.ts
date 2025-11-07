@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { GameService } from '@features/board/data/services/game/game.service';
 
 @Component({
@@ -8,5 +8,11 @@ import { GameService } from '@features/board/data/services/game/game.service';
 })
 export class Dice {
   private _gameService = inject(GameService);
-  game$ = this._gameService.game$;
+  diceValues$ = this._gameService.diceRoll$;
+
+  constructor() {
+    effect(() => {
+      console.log('Dice values:', this.diceValues$());
+    });
+  }
 }
