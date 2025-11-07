@@ -8,6 +8,9 @@ export class StorageService {
     localStorage.setItem('access', access);
     localStorage.setItem('refresh', refresh);
   }
+  public setUsername(username: string) {
+    localStorage.setItem('username', username);
+  }
 
   public setAccessToken(access: string) {
     localStorage.setItem('access', access);
@@ -20,6 +23,14 @@ export class StorageService {
 
   public getJwt(): string {
     return localStorage.getItem('access') || '';
+  }
+
+  public getUsername(): string {
+    const username = localStorage.getItem('username') || '';
+    if (!username) {
+      this.delJwt();
+    }
+    return username;
   }
 
   public getRefresh(): string {
