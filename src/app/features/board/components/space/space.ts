@@ -15,7 +15,7 @@ export class SpaceComponent {
     if (!this.space() || !this.space()!.color) {
       return null;
     }
-    return this.space()!.color.toLowerCase();
+    return this.space()!.color.toLowerCase().replace(' ', '-');
   });
 
   ngOnInit(): void {
