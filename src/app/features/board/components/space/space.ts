@@ -1,26 +1,39 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
 import { Player, Space } from '@features/board/board.models';
+import { GameService } from '@features/board/data/services/game/game.service';
+import { PlayerToken } from '../player-token/player-token';
 
 @Component({
   selector: 'app-space',
-  imports: [CommonModule],
+  imports: [CommonModule, PlayerToken],
   templateUrl: './space.html',
   styleUrl: './space.css',
 })
 export class SpaceComponent {
-  space = input<Space | null>(null);
-  players = input<Player[]>([]);
+  private _gameService = inject(GameService);
+
+  space$ = input<Space | null>(null);
+  players$ = this._gameService.players$;
+
+  playersOnSpace$ = computed(() => {
+    if (!this.space$() || !this.players$()) {
+      return [];
+    }
+    return this.players$()!.filter(
+      (player: Player) => player.position === this.space$()!.position,
+    );
+  });
 
   color = computed(() => {
-    if (!this.space() || !this.space()!.color) {
+    if (!this.space$() || !this.space$()!.color) {
       return null;
     }
-    return this.space()!.color.toLowerCase().replace(' ', '-');
+    return this.space$()!.color.toLowerCase().replace(' ', '-');
   });
 
   isMiddle(): boolean {
-    const pos = this.space()?.position ?? -1;
+    const pos = this.space$()?.position ?? -1;
     if (pos >= 12 && pos <= 20) {
       return true;
     }

@@ -1,5 +1,5 @@
 <div class="space-container" [ngClass]="{ 'middle-space': isMiddle() }">
-  @if (space()) {
+  @if (space$()) {
     <div
       class="space-color"
       [ngClass]="{ 'space-color-middle': isMiddle() }"
@@ -12,7 +12,14 @@
         'space-label-normal': !isMiddle(),
       }"
     >
-      <p>{{ space()!.name }}</p>
+      <p>{{ space$()!.name }}</p>
+    </div>
+    <div class="space-main" [ngClass]="{ 'space-main-middle': isMiddle() }">
+      @for (player of playersOnSpace$(); track player.username) {
+        <div class="player-token">
+          <app-player-token [player$]="player"></app-player-token>
+        </div>
+      }
     </div>
   }
 </div>

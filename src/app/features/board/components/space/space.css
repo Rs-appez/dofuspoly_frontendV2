@@ -23,7 +23,7 @@
 .space-label {
   display: flex;
   width: 100%;
-  height: 80%;
+  height: 20%;
   text-align: center;
   justify-content: center;
   background-color: #c1ae87;
@@ -34,7 +34,7 @@
 }
 
 .space-label-middle {
-  width: 80%;
+  width: 20%;
   height: 100%;
 }
 
@@ -46,4 +46,15 @@
 
 .space-label-middle p {
   writing-mode: vertical-rl;
+}
+
+.space-main {
+  width: 100%;
+  height: 60%;
+  background-color: grey;
+}
+
+.space-main-middle {
+  width: 60%;
+  height: 100%;
 }
