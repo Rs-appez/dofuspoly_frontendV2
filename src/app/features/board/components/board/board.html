@@ -1,0 +1,11 @@
+<div class="board-container">
+  @for (space of spaces$(); track space.position) {
+    <app-space
+      [space]="space"
+      [style.gridColumn]="getCol(space.position) + ' / span 1'"
+      [style.gridRow]="getRow(space.position) + ' / span 1'"
+    >
+    </app-space>
+  }
+</div>
+<!-- [style.transform]="'rotate(' + getRotation(space.position) + 'deg)'" -->

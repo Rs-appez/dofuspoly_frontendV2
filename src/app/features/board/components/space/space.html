@@ -1,0 +1,11 @@
+<div class="space-container">
+  @if (space()) {
+    <div
+      class="space-color"
+      [style.backgroundColor]="'var(--' + color() + '-space)'"
+    ></div>
+    <div class="space-label">
+      <p>{{ space()!.name }}</p>
+    </div>
+  }
+</div>

@@ -1,0 +1,9 @@
+.board-container {
+  display: grid;
+  grid-template-rows: 14% repeat(9, 8%) 14%;
+  grid-template-columns: 14% repeat(9, 8%) 14%;
+  height: 800px;
+  width: 800px;
+  background-color: #1e1e1e;
+  color: black;
+}

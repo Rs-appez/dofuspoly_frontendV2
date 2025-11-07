@@ -1,0 +1,26 @@
+.space-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border: 2px solid black;
+  box-sizing: border-box;
+}
+.space-color {
+  width: 100%;
+  height: 20%;
+}
+.space-label {
+  width: 100%;
+  height: 80%;
+  text-align: center;
+  background-color: #c1ae87;
+}
+
+.space-label p {
+  margin: 2px;
+  font-weight: bold;
+  font-size: 0.8em;
+}
