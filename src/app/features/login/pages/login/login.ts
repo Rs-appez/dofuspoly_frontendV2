@@ -41,6 +41,7 @@ export class Login implements OnInit {
     this._authService.login(username, password).subscribe({
       next: (response: LoginResponse) => {
         this._storageService.setJwt(response.access, response.refresh);
+        this._storageService.setUsername(username);
         if (this.redirectUrl) {
           this._router.navigate([this.redirectUrl]);
           return;
