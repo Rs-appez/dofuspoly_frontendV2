@@ -45,6 +45,7 @@ export class GameService {
       next: (game) => {
         this._game$.set(game);
         this.connect();
+        console.log('Current game fetched:', game);
       },
       error: (error) => {
         console.error('Error fetching current game:', error);
@@ -60,7 +61,10 @@ export class GameService {
     this.ws$ = webSocket(`${this.BASE_WS_URL}/game/${this._game$()?.id}/`);
 
     this.wsSubscription = this.ws$.subscribe({
-      next: (msg: GameWebSocketMessage) => this.updateGameFromMessage(msg),
+      next: (msg: GameWebSocketMessage) => {
+        this.updateGameFromMessage(msg);
+        console.log(this._game$());
+      },
       error: (err) => {
         console.error(err);
         this.tryReconnect();
