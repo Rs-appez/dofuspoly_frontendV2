@@ -4,6 +4,7 @@ import { inject, Injectable, signal } from '@angular/core';
 import { environment } from '@env/environment';
 import { Game } from '@features/board/board.models';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { timer, throwError, retry, catchError } from 'rxjs';
 
 export interface GameWebSocketMessage {
   game: Game;
@@ -18,6 +19,9 @@ export class GameService {
 
   private ws$?: WebSocketSubject<any>;
   private _http: HttpClient = inject(HttpClient);
+
+  private reconnectAttempts = 0;
+  private readonly maxReconnectAttempts = 5;
 
   private _game$ = signal<Game | null>(null);
   readonly game$ = this._game$.asReadonly();
@@ -78,14 +82,33 @@ export class GameService {
     this.ws$ = webSocket(`${this.BASE_WS_URL}/game/${this._game$()?.id}/`);
 
     this.ws$.subscribe({
-      next: (msg: GameWebSocketMessage) => {
-        this._game$.set(msg.game);
+      next: (msg: GameWebSocketMessage) => this._game$.set(msg.game),
+      error: (err) => {
+        console.error(err);
+        this.tryReconnect();
       },
-      error: (err) => console.error(err),
       complete: () => console.log('Connection closed'),
     });
   }
   disconnect() {
     this.ws$?.complete();
+  }
+
+  tryReconnect() {
+    if (this.reconnectAttempts >= this.maxReconnectAttempts) {
+      console.error('Max reconnect attempts reached');
+      this.reconnectAttempts = 0;
+      return;
+    }
+
+    this.reconnectAttempts++;
+    const backoffDelay = Math.pow(2, this.reconnectAttempts) * 1000;
+    console.log(
+      `Reconnecting... Attempt ${this.reconnectAttempts}/${this.maxReconnectAttempts} after ${backoffDelay}ms`,
+    );
+
+    timer(backoffDelay).subscribe(() => {
+      this.connect();
+    });
   }
 }
