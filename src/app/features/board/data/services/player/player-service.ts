@@ -3,6 +3,7 @@ import { computed, inject, Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { Subscription } from 'rxjs';
 import { GameService } from '../game/game.service';
+import { StorageService } from '@core/services/storage.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,16 +11,16 @@ import { GameService } from '../game/game.service';
 export class PlayerService {
   BASE_URL: string = `${environment.backUrl}/dofuspoly/game`;
 
-  private _http: HttpClient = inject(HttpClient);
-  private _gameService: GameService = inject(GameService);
+  private _http = inject(HttpClient);
+  private _gameService = inject(GameService);
+  private _storageService = inject(StorageService);
   private _game = this._gameService.game$();
 
   player$ = computed(() => {
     if (this._game === null) {
       return null;
     }
-    // Assuming current player's ID is available via some auth service
-    const currentPlayer = 'appez'; // Replace with actual current player ID retrieval
+    const currentPlayer = this._storageService.getUsername();
     return (
       this._game.players.find((player) => player.username === currentPlayer) ||
       null
