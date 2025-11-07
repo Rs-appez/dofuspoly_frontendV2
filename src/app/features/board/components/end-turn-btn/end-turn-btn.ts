@@ -9,6 +9,8 @@ import { PlayerService } from '@features/board/data/services/player/player-servi
 })
 export class EndTurnBtn {
   private _playerService = inject(PlayerService);
+  player$ = this._playerService.player$;
+  isCurrentPlayer$ = this._playerService.isPlayerTurn$;
 
   endTurn(): void {
     this._playerService.endTurn();

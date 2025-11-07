@@ -1,1 +1,3 @@
-<button (click)="rollDice()">Roll Dice</button>
+<button (click)="rollDice()" [disabled]="player$()!.has_rolled || !isCurrentPlayer$()">
+  Roll Dice
+</button>
