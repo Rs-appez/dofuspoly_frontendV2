@@ -32,14 +32,10 @@ export class SpaceComponent {
     return this.space$()!.color.toLowerCase().replace(' ', '-');
   });
 
-  isMiddle(): boolean {
-    const pos = this.space$()?.position ?? -1;
-    if (pos >= 12 && pos <= 20) {
-      return true;
-    }
-    if (pos >= 32 && pos <= 40) {
-      return true;
-    }
-    return false;
+  isRotatedSideways(): boolean {
+    const position = this.space$()?.position || 0;
+    return (
+      (position >= 11 && position <= 19) || (position >= 31 && position <= 39)
+    );
   }
 }

@@ -1,20 +1,26 @@
-<div class="space-container" [ngClass]="{ 'middle-space': isMiddle() }">
+<div
+  class="space-container"
+  [ngClass]="{ 'middle-space': isRotatedSideways() }"
+>
   @if (space$()) {
     <div
       class="space-color"
-      [ngClass]="{ 'space-color-middle': isMiddle() }"
+      [ngClass]="{ 'space-color-middle': isRotatedSideways() }"
       [style.backgroundColor]="'var(--' + color() + '-space)'"
     ></div>
     <div
       class="space-label"
       [ngClass]="{
-        'space-label-middle': isMiddle(),
-        'space-label-normal': !isMiddle(),
+        'space-label-middle': isRotatedSideways(),
+        'space-label-normal': !isRotatedSideways(),
       }"
     >
       <p>{{ space$()!.name }}</p>
     </div>
-    <div class="space-main" [ngClass]="{ 'space-main-middle': isMiddle() }">
+    <div
+      class="space-main"
+      [ngClass]="{ 'space-main-middle': isRotatedSideways() }"
+    >
       @for (player of playersOnSpace$(); track player.username) {
         <div class="player-token">
           <app-player-token [player$]="player"></app-player-token>

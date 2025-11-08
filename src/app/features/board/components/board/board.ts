@@ -20,46 +20,41 @@ export class Board {
   player$ = computed(() => this.game$()?.current_player ?? null);
 
   getRow(position: number): number {
-    if (position >= 0 && position <= 11) {
+    if (position >= 0 && position <= 10) {
       return 11;
     }
-    if (position >= 12 && position <= 20) {
-      return 22 - position;
+    if (position >= 11 && position <= 19) {
+      return 21 - position;
     }
-    if (position >= 21 && position <= 31) {
+    if (position >= 20 && position <= 30) {
       return 1;
     }
-    if (position >= 32 && position <= 40) {
-      return position - 30;
+    if (position >= 31 && position <= 39) {
+      return position - 29;
     }
     return 0;
   }
 
   getCol(position: number): number {
-    if (position >= 1 && position <= 11) {
-      return 12 - position;
+    if (position >= 0 && position <= 10) {
+      return 11 - position;
     }
-    if (position >= 12 && position <= 21) {
+    if (position >= 11 && position <= 20) {
       return 1;
     }
-    if (position >= 22 && position <= 31) {
-      return position - 20;
+    if (position >= 21 && position <= 30) {
+      return position - 19;
     }
-    if (position >= 32 && position <= 40) {
+    if (position >= 31 && position <= 39) {
       return 11;
     }
     return 0;
   }
 
   getRotation(position: number): number {
-    if (position >= 21 && position <= 40) {
+    if (position >= 20 && position <= 39) {
       return 180;
     }
     return 0;
-  }
-  isRotatedSideways(position: number): boolean {
-    return (
-      (position >= 12 && position <= 20) || (position >= 32 && position <= 40)
-    );
   }
 }
