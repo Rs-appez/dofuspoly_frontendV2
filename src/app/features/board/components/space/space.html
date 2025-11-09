@@ -22,7 +22,11 @@
       [ngClass]="{ 'space-main-middle': isRotatedSideways() }"
     >
       @for (player of playersOnSpace$(); track player.username) {
-        <div class="player-token">
+        <div
+          class="player-token"
+          animate.enter="player-token-enter"
+          animate.leave="player-token-exit"
+        >
           <app-player-token [player$]="player"></app-player-token>
         </div>
       }
