@@ -38,6 +38,18 @@ export class PlayerService {
     return game.current_player.username === player.username;
   });
 
+  canBuy$ = computed(() => {
+    const player = this.player$();
+    if (player === null) {
+      return false;
+    }
+    const currentSpace = this._gameService.getSpaceByPosition(player.position);
+    if (!currentSpace || !currentSpace.can_be_bought) {
+      return false;
+    }
+    return player.money >= currentSpace.price;
+  });
+
   rollDice(): Subscription {
     if (this._game$() === null) {
       throw new Error('No current game available to roll dice.');

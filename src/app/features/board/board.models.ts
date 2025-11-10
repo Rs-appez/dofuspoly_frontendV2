@@ -15,6 +15,7 @@ export interface Space {
   color: string;
   price: number;
   position: number;
+  can_be_bought: boolean;
 }
 
 export interface Player {
