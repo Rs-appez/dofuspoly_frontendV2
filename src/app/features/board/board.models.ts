@@ -6,7 +6,7 @@ export interface Game {
   dice2Value: number;
   turn: number;
   finished: boolean;
-  current_player: Player;
+  current_player: string;
 }
 
 export interface Space {

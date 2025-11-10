@@ -4,14 +4,14 @@
       <div
         class="player-info"
         [ngClass]="{
-          'current-player':
-            player.username === game$()!.current_player.username,
+          'current-player': player.username === game$()!.current_player,
         }"
       >
         <h3>
           {{ player.username }}
         </h3>
         <p>Position: {{ player.position }}</p>
+        <p>Balance: ${{ player.money }}</p>
       </div>
     }
   </div>

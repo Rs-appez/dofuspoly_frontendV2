@@ -35,7 +35,7 @@ export class PlayerService {
     if (game === null || player === null) {
       return false;
     }
-    return game.current_player.username === player.username;
+    return game.current_player === player.username;
   });
 
   canBuy$ = computed(() => {
