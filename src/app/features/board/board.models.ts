@@ -25,8 +25,16 @@ export interface Player {
   money: number;
   in_jail: boolean;
   jail_turns: number;
+  owned_spaces: OwnedSpace[];
   cards: Card[];
   image: string;
 }
 
 export interface Card { }
+
+export interface OwnedSpace {
+  space: string;
+  houses: number;
+  has_hotel: boolean;
+  is_mortgaged: boolean;
+}
