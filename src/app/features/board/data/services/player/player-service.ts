@@ -38,13 +38,33 @@ export class PlayerService {
     return game.current_player === player.username;
   });
 
+  isSpaceOwned$ = computed(() => {
+    const player = this.player$();
+    const game = this._gameService.game$();
+    if (player === null || game === null) {
+      return false;
+    }
+    const currentSpace = this._gameService.getSpaceByPosition(player.position);
+    if (!currentSpace) {
+      return false;
+    }
+    if (
+      game?.players.some((p) =>
+        p.owned_spaces.some((os) => os.space === currentSpace.name),
+      )
+    ) {
+      return true;
+    }
+    return false;
+  });
+
   canBuy$ = computed(() => {
     const player = this.player$();
     if (player === null) {
       return false;
     }
     const currentSpace = this._gameService.getSpaceByPosition(player.position);
-    if (!currentSpace || !currentSpace.can_be_bought) {
+    if (!currentSpace || !currentSpace.can_be_bought || this.isSpaceOwned$()) {
       return false;
     }
     return player.money >= currentSpace.price;
