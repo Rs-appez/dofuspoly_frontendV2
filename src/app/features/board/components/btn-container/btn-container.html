@@ -7,12 +7,14 @@
       Roll Dice
     </button>
   } @else {
-    <button
-      (click)="buyProperty()"
-      [disabled]="!player$()!.has_rolled || !isCurrentPlayer$()"
-    >
-      Buy
-    </button>
+    @if (canBuy$()) {
+      <button
+        (click)="buyProperty()"
+        [disabled]="!player$()!.has_rolled || !isCurrentPlayer$() || has_buy"
+      >
+        Buy
+      </button>
+    }
     <button
       (click)="endTurn()"
       [disabled]="!player$()!.has_rolled || !isCurrentPlayer$()"
