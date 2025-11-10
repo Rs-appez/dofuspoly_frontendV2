@@ -61,6 +61,18 @@ export class GameService {
     });
   }
 
+  getSpaceByPosition(position: number) {
+    {
+      const game = this._game$();
+      if (game === null) {
+        return null;
+      }
+      return (
+        game.board.spaces.find((space) => space.position === position) || null
+      );
+    }
+  }
+
   // WebSocket connection methods
   connect() {
     if (this._game$() === null) {
