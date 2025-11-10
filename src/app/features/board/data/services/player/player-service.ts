@@ -9,7 +9,6 @@ import { StorageService } from '@core/services/storage.service';
   providedIn: 'root',
 })
 export class PlayerService {
-  // BASE_URL: string = `${environment.backUrl}/dofuspoly/game`;
   BASE_URL = computed(
     () => `${environment.backUrl}/dofuspoly/game/${this._game$()?.id}`,
   );
