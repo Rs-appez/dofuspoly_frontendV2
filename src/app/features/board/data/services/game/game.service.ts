@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { environment } from '@env/environment';
-import { Game } from '@features/board/board.models';
+import { Game, Space } from '@features/board/board.models';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { timer } from 'rxjs';
 
@@ -61,7 +61,7 @@ export class GameService {
     });
   }
 
-  getSpaceByPosition(position: number) {
+  getSpaceByPosition(position: number): Space | null {
     {
       const game = this._game$();
       if (game === null) {
