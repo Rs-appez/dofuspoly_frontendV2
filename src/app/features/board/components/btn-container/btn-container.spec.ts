@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RollDiceBtn } from './roll-dice-btn';
+import { BtnContainer } from './btn-container';
 
-describe('RollDiceBtn', () => {
-  let component: RollDiceBtn;
-  let fixture: ComponentFixture<RollDiceBtn>;
+describe('BtnContainer', () => {
+  let component: BtnContainer;
+  let fixture: ComponentFixture<BtnContainer>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RollDiceBtn]
+      imports: [BtnContainer]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(RollDiceBtn);
+    fixture = TestBed.createComponent(BtnContainer);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -13,14 +13,8 @@
     <div class="dice-container">
       <app-dice></app-dice>
     </div>
-    @if (player$()) {
-      <div class="btn-container">
-        @if (!player$()!.has_rolled) {
-          <app-roll-dice-btn></app-roll-dice-btn>
-        } @else {
-          <app-end-turn-btn></app-end-turn-btn>
-        }
-      </div>
-    }
+    <div class="btn-container">
+      <app-btn-container></app-btn-container>
+    </div>
   </div>
 </div>

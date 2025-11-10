@@ -1,0 +1,23 @@
+@if (player$()) {
+  @if (!player$()!.has_rolled) {
+    <button
+      (click)="rollDice()"
+      [disabled]="player$()!.has_rolled || !isCurrentPlayer$()"
+    >
+      Roll Dice
+    </button>
+  } @else {
+    <button
+      (click)="buyProperty()"
+      [disabled]="!player$()!.has_rolled || !isCurrentPlayer$()"
+    >
+      Buy
+    </button>
+    <button
+      (click)="endTurn()"
+      [disabled]="!player$()!.has_rolled || !isCurrentPlayer$()"
+    >
+      End Turn
+    </button>
+  }
+}
