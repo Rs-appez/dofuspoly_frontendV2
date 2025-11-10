@@ -73,4 +73,22 @@ export class PlayerService {
         },
       });
   }
+
+  buyProperty(): Subscription {
+    if (this._game$() === null) {
+      throw new Error('No current game available to buy property.');
+    }
+    return this._http
+      .get<{
+        status: string;
+      }>(`${this.BASE_URL()}/buy_space/`)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+        },
+        error: (error) => {
+          console.error('Error buying property:', error);
+        },
+      });
+  }
 }
