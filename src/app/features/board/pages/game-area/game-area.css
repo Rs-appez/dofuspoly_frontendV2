@@ -1,4 +1,23 @@
+.game-area {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 98vh;
+  width: 100vw;
+}
+
+.game-area>* {
+  margin: 10px 5px;
+}
+
 .board {
-  width: 800px;
-  height: 800px;
+  height: 950px;
+  aspect-ratio: 1 / 1;
+}
+
+.player-info-left,
+.player-info-right {
+  height: 98vh;
+  min-width: 100px;
 }
