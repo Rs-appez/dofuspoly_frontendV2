@@ -9,7 +9,10 @@ import { StorageService } from '@core/services/storage.service';
   providedIn: 'root',
 })
 export class PlayerService {
-  BASE_URL: string = `${environment.backUrl}/dofuspoly/game`;
+  // BASE_URL: string = `${environment.backUrl}/dofuspoly/game`;
+  BASE_URL = computed(
+    () => `${environment.backUrl}/dofuspoly/game/${this._game$()?.id}`,
+  );
 
   private _http = inject(HttpClient);
   private _gameService = inject(GameService);
@@ -17,7 +20,7 @@ export class PlayerService {
   private _game$ = this._gameService.game$;
 
   player$ = computed(() => {
-    const game = this._gameService.game$();
+    const game = this._game$();
     if (game === null) {
       return null;
     }
@@ -26,6 +29,7 @@ export class PlayerService {
       game.players.find((player) => player.username === currentPlayer) || null
     );
   });
+
   isPlayerTurn$ = computed(() => {
     const player = this.player$();
     const game = this._gameService.game$();
@@ -35,15 +39,14 @@ export class PlayerService {
     return game.current_player.username === player.username;
   });
 
-  game$ = this._gameService.game$;
   rollDice(): Subscription {
-    if (this.game$() === null) {
+    if (this._game$() === null) {
       throw new Error('No current game available to roll dice.');
     }
     return this._http
       .get<{
         status: string;
-      }>(`${this.BASE_URL}/${this.game$()!.id}/roll_dice/`)
+      }>(`${this.BASE_URL()}/roll_dice/`)
       .subscribe({
         next: (res) => {
           console.log(res);
@@ -55,13 +58,13 @@ export class PlayerService {
   }
 
   endTurn(): Subscription {
-    if (this.game$() === null) {
+    if (this._game$() === null) {
       throw new Error('No current game available to end turn.');
     }
     return this._http
       .get<{
         status: string;
-      }>(`${this.BASE_URL}/end_turn/`)
+      }>(`${this.BASE_URL()}/end_turn/`)
       .subscribe({
         next: (res) => {
           console.log(res);
