@@ -20,4 +20,5 @@
 .player-info-right {
   height: 98vh;
   min-width: 100px;
+  width: 100%;
 }
