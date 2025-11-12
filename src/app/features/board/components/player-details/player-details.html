@@ -1,10 +1,10 @@
 @if (player$()) {
   <div class="player-details">
-    <h3>Properties Owned:</h3>
+    <h3>Streets Owned:</h3>
     <ul>
-      @for (property of properties$(); track property.name) {
-        <li [style.color]="'var(--' + (property.color | colorPipe) + '-space)'">
-          {{ property.name }}
+      @for (street of properties$(); track street.name) {
+        <li [style.color]="'var(--' + (street.color | colorPipe) + '-space)'">
+          {{ street.name }}
         </li>
       } @empty {
         <li>No properties owned.</li>
