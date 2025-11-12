@@ -1,0 +1,30 @@
+@if (player$()) {
+  <div class="player-details">
+    <h3>Properties Owned:</h3>
+    <ul>
+      @for (property of properties$(); track property.name) {
+        <li [style.color]="'var(--' + (property.color | colorPipe) + '-space)'">
+          {{ property.name }}
+        </li>
+      } @empty {
+        <li>No properties owned.</li>
+      }
+    </ul>
+    <h3>Portals Owned:</h3>
+    <ul>
+      @for (portal of railroads$(); track portal.name) {
+        <li>{{ portal.name }}</li>
+      } @empty {
+        <li>No portals owned.</li>
+      }
+    </ul>
+    <h3>Utilities Owned:</h3>
+    <ul>
+      @for (utility of utilities$(); track utility.name) {
+        <li>{{ utility.name }}</li>
+      } @empty {
+        <li>No utilities owned.</li>
+      }
+    </ul>
+  </div>
+}
