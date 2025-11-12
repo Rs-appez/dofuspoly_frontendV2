@@ -1,5 +1,5 @@
 @if (player$()) {
-  @if (!player$()!.has_rolled) {
+  @if (!player$()!.has_rolled && !player$()!.nb_double_rolls) {
     <button
       (click)="rollDice()"
       [disabled]="player$()!.has_rolled || !isCurrentPlayer$()"
@@ -10,16 +10,25 @@
     @if (canBuy$()) {
       <button
         (click)="buyProperty()"
-        [disabled]="!player$()!.has_rolled || !isCurrentPlayer$() || has_buy"
+        [disabled]="!isCurrentPlayer$() || has_buy"
       >
         Buy
       </button>
     }
-    <button
-      (click)="endTurn()"
-      [disabled]="!player$()!.has_rolled || !isCurrentPlayer$()"
-    >
-      End Turn
-    </button>
+    @if (player$()!.nb_double_rolls && !player$()!.has_rolled) {
+      <button
+        (click)="rollDice()"
+        [disabled]="player$()!.has_rolled || !isCurrentPlayer$()"
+      >
+        Reroll
+      </button>
+    } @else {
+      <button
+        (click)="endTurn()"
+        [disabled]="!player$()!.has_rolled || !isCurrentPlayer$()"
+      >
+        End Turn
+      </button>
+    }
   }
 }

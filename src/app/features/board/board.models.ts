@@ -22,6 +22,7 @@ export interface Player {
   username: string;
   position: number;
   has_rolled: boolean;
+  nb_double_rolls: number;
   money: number;
   in_jail: boolean;
   jail_turns: number;
