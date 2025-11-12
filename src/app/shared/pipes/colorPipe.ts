@@ -8,7 +8,7 @@ export class ColorPipe implements PipeTransform {
     if (!value) {
       return '';
     }
-    value = value.toLowerCase().replaceAll(' ', '_');
+    value = value.toLowerCase().replaceAll(' ', '-');
     return value;
   }
 }
