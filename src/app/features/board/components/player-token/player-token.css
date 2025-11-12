@@ -1,0 +1,13 @@
+.player-token {
+  margin: 1px;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.player-token img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}

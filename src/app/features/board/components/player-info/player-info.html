@@ -7,11 +7,19 @@
           'current-player': player.username === game$()!.current_player,
         }"
       >
-        <h3>
-          {{ player.username }}
-        </h3>
-        <p>Position: {{ player.position }}</p>
-        <p>Balance: ${{ player.money }}</p>
+        <div class="image-container">
+          <img
+            [src]="'/characters/' + player.image"
+            alt="{{ player.username }}'s avatar"
+          />
+        </div>
+        <div class="player-text">
+          <h3>
+            {{ player.username }}
+          </h3>
+          <p>Position: {{ player.position }}</p>
+          <p>Balance: ${{ player.money }}</p>
+        </div>
       </div>
     }
   }

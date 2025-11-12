@@ -10,14 +10,18 @@
 .player-info {
   display: flex;
   flex: 0 0 100%;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   border: 1px solid #ccc;
   box-sizing: border-box;
 }
 
-.player-info>* {
+.player-text {
+  flex-direction: column;
+}
+
+.player-text>* {
   margin: 0;
   margin-top: 5px;
   padding: 0;

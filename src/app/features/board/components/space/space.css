@@ -63,6 +63,23 @@
   height: 100%;
 }
 
+.player-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20px, 1fr));
+  grid-auto-rows: minmax(20px, 1fr);
+  gap: 2px;
+  align-items: center;
+  justify-items: center;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  padding: 2px;
+}
+
+.player-container:has(.player-token:nth-child(n + 5)) {
+  grid-template-columns: repeat(3, 1fr);
+}
+
 .player-token-enter {
   animation: player-token-enter 0.5s ease-in-out;
 }
