@@ -3,10 +3,11 @@ import { Component, computed, inject, input } from '@angular/core';
 import { Player, Space } from '@features/board/board.models';
 import { GameService } from '@features/board/data/services/game/game.service';
 import { PlayerToken } from '../player-token/player-token';
+import { ColorPipe } from '@shared/pipes/colorPipe';
 
 @Component({
   selector: 'app-space',
-  imports: [CommonModule, PlayerToken],
+  imports: [CommonModule, PlayerToken, ColorPipe],
   templateUrl: './space.html',
   styleUrl: './space.css',
 })
@@ -23,13 +24,6 @@ export class SpaceComponent {
     return this.players$()!.filter(
       (player: Player) => player.position === this.space$()!.position,
     );
-  });
-
-  color = computed(() => {
-    if (!this.space$() || !this.space$()!.color) {
-      return null;
-    }
-    return this.space$()!.color.toLowerCase().replace(' ', '-');
   });
 
   isRotatedSideways(): boolean {

@@ -6,7 +6,9 @@
     <div
       class="space-color"
       [ngClass]="{ 'space-color-middle': isRotatedSideways() }"
-      [style.backgroundColor]="'var(--' + color() + '-space)'"
+      [style.backgroundColor]="
+        'var(--' + (space$()!.color | colorPipe) + '-space)'
+      "
     ></div>
     <div
       class="space-label"
