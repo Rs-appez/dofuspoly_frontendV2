@@ -26,7 +26,7 @@ export function jwtInterceptor(
   }
   return next(request).pipe(
     catchError((err: HttpErrorResponse) => {
-      if (err.status === 401 && !request.url.endsWith('/refresh')) {
+      if (err.status === 401 && !request.url.endsWith('/refresh/')) {
         const refreshToken = storageService.getRefresh();
         if (refreshToken) {
           return auth.refreshToken(refreshToken).pipe(
