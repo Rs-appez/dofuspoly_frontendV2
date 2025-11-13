@@ -48,6 +48,30 @@ export class GameService {
     { equal: (a, b) => a.dice1 === b.dice1 && a.dice2 === b.dice2 },
   );
 
+  streets$ = computed(() => {
+    const game = this._game$();
+    if (game === null) {
+      return null;
+    }
+    return game.board.spaces.filter((space) => space.type === 'Street');
+  });
+
+  railroads$ = computed(() => {
+    const game = this._game$();
+    if (game === null) {
+      return null;
+    }
+    return game.board.spaces.filter((space) => space.type === 'Railroad');
+  });
+
+  utilities$ = computed(() => {
+    const game = this._game$();
+    if (game === null) {
+      return null;
+    }
+    return game.board.spaces.filter((space) => space.type === 'Utility');
+  });
+
   launchGame(): Subscription {
     return this._http.get<Game>(`${this.BASE_URL}/current_game/`).subscribe({
       next: (game) => {
