@@ -70,6 +70,45 @@ export class PlayerService {
     return player.money >= currentSpace.price;
   });
 
+  properties$ = computed(() => {
+    const player = this.player$();
+    const game = this._game$();
+
+    return (
+      game?.board.spaces.filter(
+        (space) =>
+          player?.owned_spaces.some((os) => os.space == space.name) &&
+          space.type === 'Street',
+      ) || []
+    );
+  });
+
+  railroads$ = computed(() => {
+    const player = this.player$();
+    const game = this._game$();
+
+    return (
+      game?.board.spaces.filter(
+        (space) =>
+          player?.owned_spaces.some((os) => os.space == space.name) &&
+          space.type === 'Railroad',
+      ) || []
+    );
+  });
+
+  utilities$ = computed(() => {
+    const player = this.player$();
+    const game = this._game$();
+
+    return (
+      game?.board.spaces.filter(
+        (space) =>
+          player?.owned_spaces.some((os) => os.space == space.name) &&
+          space.type === 'Utility',
+      ) || []
+    );
+  });
+
   rollDice(): Subscription {
     if (this._game$() === null) {
       throw new Error('No current game available to roll dice.');
