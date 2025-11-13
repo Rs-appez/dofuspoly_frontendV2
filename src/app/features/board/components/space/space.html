@@ -27,8 +27,6 @@
         @for (player of playersOnSpace$(); track player.username) {
           <app-player-token
             class="player-token"
-            animate.enter="player-token-enter"
-            animate.leave="player-token-exit"
             [player$]="player"
           ></app-player-token>
         }
