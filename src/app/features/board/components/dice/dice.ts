@@ -1,4 +1,4 @@
-import { Component, effect, inject } from '@angular/core';
+import { Component, computed, effect, inject } from '@angular/core';
 import { GameService } from '@features/board/data/services/game/game.service';
 
 @Component({
@@ -9,4 +9,8 @@ import { GameService } from '@features/board/data/services/game/game.service';
 export class Dice {
   private _gameService = inject(GameService);
   diceValues$ = this._gameService.diceRoll$;
+  isRolling$ = computed(() => {
+    const { dice1, dice2 } = this.diceValues$();
+    return dice1 === 0 && dice2 === 0;
+  });
 }
