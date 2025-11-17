@@ -72,8 +72,14 @@
   justify-items: center;
   height: 100%;
   width: 100%;
+  box-sizing: border-box;
   position: relative;
   padding: 2px;
+}
+
+.player-token {
+  height: 100%;
+  width: 100%;
 }
 
 .player-container:has(.player-token:nth-child(n + 5)) {
