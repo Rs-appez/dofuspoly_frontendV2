@@ -19,9 +19,11 @@ export class BtnContainer {
     this._playerService.endTurn();
     this.has_buy = false;
   }
+
   rollDice(): void {
     this._playerService.rollDice();
   }
+
   buyProperty(): void {
     this._playerService.buyProperty();
     this.has_buy = true;
