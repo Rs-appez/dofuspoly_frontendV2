@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { CardService } from '@features/board/data/services/card/card.service';
 import { PlayerService } from '@features/board/data/services/player/player-service';
 
 @Component({
@@ -9,6 +10,7 @@ import { PlayerService } from '@features/board/data/services/player/player-servi
 })
 export class BtnContainer {
   private _playerService = inject(PlayerService);
+  private _cardService = inject(CardService);
   player$ = this._playerService.player$;
   isCurrentPlayer$ = this._playerService.isPlayerTurn$;
   canBuy$ = this._playerService.canBuy$;
@@ -27,5 +29,9 @@ export class BtnContainer {
   buyProperty(): void {
     this._playerService.buyProperty();
     this.has_buy = true;
+  }
+
+  openCardModal() {
+    this._cardService.showCard();
   }
 }
