@@ -8,3 +8,7 @@
   --green-space: #1fa64a;
   --dark-blue-space: #0268b3;
 }
+
+::backdrop {
+  background-color: rgb(0, 0, 0, 0.8);
+}
