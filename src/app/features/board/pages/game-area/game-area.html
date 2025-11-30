@@ -8,4 +8,7 @@
   <div class="player-info-right">
     <app-player-details></app-player-details>
   </div>
+  <dialog #cardModal closedby="any" (close)="onModalClose()" class="show-card-modal">
+    <app-show-card></app-show-card>
+  </dialog>
 </div>
